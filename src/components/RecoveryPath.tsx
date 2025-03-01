@@ -1,7 +1,7 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Coffee, Wine, Cigarette, Gamepad2, ShoppingBag } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const recoveryPaths = [
   {
@@ -120,12 +120,16 @@ const RecoveryPath = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                  Start This Path
-                </Button>
-                <Button variant="outline" className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10">
-                  Learn More
-                </Button>
+                <Link to="/start-path">
+                  <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                    Start This Path
+                  </Button>
+                </Link>
+                <Link to="/learn-more">
+                  <Button variant="outline" className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10">
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </div>
 

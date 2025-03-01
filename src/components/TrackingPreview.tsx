@@ -1,7 +1,8 @@
-
+<lov-codelov-code>
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Calendar, Activity, CheckCircle2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const TrackingPreview = () => {
   return (
@@ -144,9 +145,11 @@ const TrackingPreview = () => {
               </div>
               
               <div className="pt-4 animate-fade-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
-                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                  Start Tracking
-                </Button>
+                <Link to="/start-tracking">
+                  <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                    Start Tracking
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -157,3 +160,4 @@ const TrackingPreview = () => {
 };
 
 export default TrackingPreview;
+</lov-code>

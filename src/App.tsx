@@ -20,6 +20,9 @@ import Community from "./pages/Community";
 import Journal from "./pages/Journal";
 import Emergency from "./pages/Emergency";
 import FreeTrial from "./pages/FreeTrial";
+import StartTracking from "./pages/StartTracking";
+import StartPath from "./pages/StartPath";
+import LearnMore from "./pages/LearnMore";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +48,9 @@ const App = () => (
           <Route path="/journal" element={<Journal />} />
           <Route path="/emergency" element={<Emergency />} />
           <Route path="/free-trial" element={<FreeTrial />} />
+          <Route path="/start-tracking" element={<StartTracking />} />
+          <Route path="/start-path" element={<StartPath />} />
+          <Route path="/learn-more" element={<LearnMore />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

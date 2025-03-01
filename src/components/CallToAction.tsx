@@ -30,10 +30,12 @@ const CallToAction = () => {
                   Start Free Trial
                 </Button>
               </Link>
-              <Button variant="outline" className="border-white/30 hover:bg-white/10 text-white text-lg px-8 py-6 h-auto rounded-xl">
-                <span>Take a Tour</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/learn-more">
+                <Button variant="outline" className="border-white/30 hover:bg-white/10 text-white text-lg px-8 py-6 h-auto rounded-xl">
+                  <span>Take a Tour</span>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </div>
             
             <p className="mt-6 text-white/60 animate-fade-up opacity-0" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>

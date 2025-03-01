@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -33,13 +34,17 @@ const Hero = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up opacity-0" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>
-              <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white text-lg px-8 py-6 h-auto rounded-xl">
-                Start Recovery
-              </Button>
-              <Button variant="outline" className="border-reclaim-charcoal/20 hover:bg-reclaim-charcoal/5 text-reclaim-charcoal text-lg px-8 py-6 h-auto rounded-xl">
-                <span>Learn More</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/start-path">
+                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white text-lg px-8 py-6 h-auto rounded-xl">
+                  Start Recovery
+                </Button>
+              </Link>
+              <Link to="/learn-more">
+                <Button variant="outline" className="border-reclaim-charcoal/20 hover:bg-reclaim-charcoal/5 text-reclaim-charcoal text-lg px-8 py-6 h-auto rounded-xl">
+                  <span>Learn More</span>
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
             </div>
           </div>
           
