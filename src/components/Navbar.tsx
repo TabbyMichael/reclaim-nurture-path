@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -33,14 +34,14 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 rounded-full bg-reclaim-blue flex items-center justify-center">
                 <span className="text-white font-semibold text-sm">R</span>
               </div>
               <span className="font-semibold text-xl tracking-tight text-reclaim-charcoal">
                 Reclaim
               </span>
-            </a>
+            </Link>
           </div>
 
           <nav className="hidden md:flex space-x-8">
@@ -59,15 +60,19 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="outline"
-              className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
-            >
-              Log in
-            </Button>
-            <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-              Get Started
-            </Button>
+            <Link to="/login">
+              <Button
+                variant="outline"
+                className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
+              >
+                Log in
+              </Button>
+            </Link>
+            <Link to="/signup">
+              <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                Get Started
+              </Button>
+            </Link>
           </div>
 
           <div className="md:hidden">
@@ -119,15 +124,23 @@ const Navbar = () => {
               Support
             </a>
             <div className="pt-2 space-y-2">
-              <Button
-                variant="outline"
-                className="w-full border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
-              >
-                Log in
-              </Button>
-              <Button className="w-full bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                Get Started
-              </Button>
+              <Link to="/login" className="w-full block">
+                <Button
+                  variant="outline"
+                  className="w-full border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Log in
+                </Button>
+              </Link>
+              <Link to="/signup" className="w-full block">
+                <Button 
+                  className="w-full bg-reclaim-blue hover:bg-reclaim-blue/90 text-white"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

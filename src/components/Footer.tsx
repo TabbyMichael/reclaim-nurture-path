@@ -1,6 +1,7 @@
 
 import React from "react";
 import { Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -43,24 +44,24 @@ const Footer = () => {
               <h3 className="font-semibold text-reclaim-charcoal mb-4">Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/recovery-paths" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Recovery Paths
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/community-support" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Community Support
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/progress-tracking" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Progress Tracking
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/journal-guides" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Journal Guides
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -69,24 +70,24 @@ const Footer = () => {
               <h3 className="font-semibold text-reclaim-charcoal mb-4">Support</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/help-center" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Help Center
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/emergency-resources" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Emergency Resources
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/contact-us" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/faq" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     FAQ
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -95,24 +96,24 @@ const Footer = () => {
               <h3 className="font-semibold text-reclaim-charcoal mb-4">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/about" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/privacy" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/terms" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/blog" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Blog
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
