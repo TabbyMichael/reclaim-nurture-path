@@ -1,10 +1,9 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, Phone, MapPin, AlertTriangle, Clock, ExternalLink, Lifebuoy } from "lucide-react";
+import { Search, Phone, MapPin, AlertTriangle, Clock, ExternalLink, LifeBuoy } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { TabsContent, TabsList, TabsTrigger, Tabs } from "@/components/ui/tabs";
@@ -248,7 +247,7 @@ const EmergencyResources = () => {
                 <div className="flex flex-col md:flex-row items-start gap-8">
                   <div className="md:w-2/3">
                     <div className="bg-white/10 rounded-full w-12 h-12 flex items-center justify-center mb-6">
-                      <Lifebuoy className="h-6 w-6" />
+                      <LifeBuoy className="h-6 w-6" />
                     </div>
                     <h2 className="text-2xl md:text-3xl font-bold mb-4">
                       In-App Emergency Support
