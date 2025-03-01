@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, User, Clock, ExternalLink, Bell, AlertCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const EmergencySupport = () => {
   return (
@@ -32,10 +33,12 @@ const EmergencySupport = () => {
               Our panic button provides immediate access to coping strategies, distraction techniques, and direct contact with support resources.
             </p>
             
-            <Button className="w-full bg-reclaim-teal hover:bg-reclaim-teal/90 text-white mb-4 h-14 text-lg">
-              <AlertCircle className="mr-2 h-5 w-5" />
-              Access Emergency Support
-            </Button>
+            <Link to="/emergency">
+              <Button className="w-full bg-reclaim-teal hover:bg-reclaim-teal/90 text-white mb-4 h-14 text-lg">
+                <AlertCircle className="mr-2 h-5 w-5" />
+                Access Emergency Support
+              </Button>
+            </Link>
             
             <p className="text-white/50 text-sm">
               In life-threatening situations, please call emergency services immediately by dialing 911 (US) or your local emergency number.
@@ -55,9 +58,9 @@ const EmergencySupport = () => {
                   <p className="text-white/70 mb-3">
                     Immediate phone support from trained professionals, available 24/7.
                   </p>
-                  <a href="#" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
+                  <Link to="/emergency" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
                     View Directory <ExternalLink className="w-4 h-4 ml-1" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -74,9 +77,9 @@ const EmergencySupport = () => {
                   <p className="text-white/70 mb-3">
                     Vetted directory of therapists and support groups specializing in addiction recovery.
                   </p>
-                  <a href="#" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
+                  <Link to="/emergency" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
                     Find Support <ExternalLink className="w-4 h-4 ml-1" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -93,9 +96,9 @@ const EmergencySupport = () => {
                   <p className="text-white/70 mb-3">
                     Quick exercises and techniques to help manage cravings and difficult moments.
                   </p>
-                  <a href="#" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
+                  <Link to="/emergency" className="inline-flex items-center text-reclaim-teal hover:text-reclaim-teal/80 transition-colors">
                     View Strategies <ExternalLink className="w-4 h-4 ml-1" />
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

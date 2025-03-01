@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { BookOpen, PencilLine, Sparkles, Lightbulb } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const JournalPreview = () => {
   return (
@@ -69,9 +70,11 @@ const JournalPreview = () => {
               </div>
               
               <div className="pt-4 animate-fade-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
-                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                  Start Journaling
-                </Button>
+                <Link to="/journal">
+                  <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                    Start Journaling
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

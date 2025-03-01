@@ -16,6 +16,10 @@ import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Blog from "./pages/Blog";
+import Community from "./pages/Community";
+import Journal from "./pages/Journal";
+import Emergency from "./pages/Emergency";
+import FreeTrial from "./pages/FreeTrial";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +41,10 @@ const App = () => (
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/emergency" element={<Emergency />} />
+          <Route path="/free-trial" element={<FreeTrial />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
