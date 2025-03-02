@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JournalManager from "@/components/JournalManager";
 
 const Journal = () => {
   return (
@@ -30,18 +30,19 @@ const Journal = () => {
               <p className="text-xl text-white/80 mb-8 animate-fade-up opacity-0" style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}>
                 Our guided journaling tools help you track progress, identify patterns, and celebrate milestones along your recovery path.
               </p>
-              <div className="animate-fade-up opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
-                <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
-                  <BookOpen className="mr-2 h-5 w-5" />
-                  Start Your Journal
-                </Button>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* Journal Features */}
+        {/* Active Journaling Section */}
         <section className="py-16 md:py-24 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <JournalManager />
+          </div>
+        </section>
+
+        {/* Journal Features */}
+        <section className="py-16 md:py-24 bg-reclaim-sand">
           <div className="max-w-6xl mx-auto px-4">
             <div className="text-center mb-16">
               <span className="px-3 py-1 rounded-full text-sm font-medium bg-reclaim-blue/10 text-reclaim-blue mb-4 inline-block">
@@ -93,7 +94,7 @@ const Journal = () => {
         </section>
 
         {/* Journal Demo */}
-        <section className="py-16 md:py-24 bg-reclaim-sand">
+        <section className="py-16 md:py-24 bg-white">
           <div className="max-w-6xl mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center gap-12">
               <div className="w-full lg:w-1/2">
@@ -215,7 +216,7 @@ const Journal = () => {
         </section>
 
         {/* Privacy */}
-        <section className="py-16 md:py-20 bg-white">
+        <section className="py-16 md:py-20 bg-reclaim-sand">
           <div className="max-w-6xl mx-auto px-4">
             <div className="glass-panel rounded-2xl p-8 border border-reclaim-blue/20">
               <div className="flex flex-col md:flex-row items-center gap-8">
@@ -240,23 +241,7 @@ const Journal = () => {
           </div>
         </section>
 
-        {/* Start Journaling CTA */}
-        <section className="py-16 md:py-24 bg-gradient-to-r from-reclaim-blue to-reclaim-teal text-white">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Start Your Journaling Practice Today
-              </h2>
-              <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-                Just a few minutes of reflection each day can significantly impact your recovery journey. Our tools make it simple to get started.
-              </p>
-              <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
-                <BookOpen className="mr-2 h-5 w-5" />
-                Begin Journaling
-              </Button>
-            </div>
-          </div>
-        </section>
+        {/* Start Journaling CTA - Removed since we now have active journaling */}
       </main>
       <Footer />
     </div>

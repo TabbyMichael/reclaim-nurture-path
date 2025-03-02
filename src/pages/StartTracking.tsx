@@ -1,10 +1,10 @@
-
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Calendar, TrendingUp, Activity, BarChart2, LineChart, CheckCircle2, Clock } from "lucide-react";
+import { TrendingUp, Activity, BarChart2, LineChart, CheckCircle2, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
+import DailyCheckInCalendar from "@/components/DailyCheckInCalendar";
 
 const StartTracking = () => {
   return (
@@ -23,6 +23,11 @@ const StartTracking = () => {
             <p className="text-reclaim-charcoal/70 max-w-2xl mx-auto">
               Monitor your progress, set goals, and celebrate milestones as you move forward in your recovery journey.
             </p>
+          </div>
+
+          {/* Active Tracking Section */}
+          <div className="mb-20">
+            <DailyCheckInCalendar />
           </div>
 
           {/* Tracking Features */}
