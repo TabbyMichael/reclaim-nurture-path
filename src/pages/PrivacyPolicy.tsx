@@ -2,7 +2,9 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Shield, Lock, UserCheck, Eye, FileText, Bell } from "lucide-react";
+import { Shield, Lock, UserCheck, Eye, FileText, Bell, Server, Globe, Calendar, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const PrivacyPolicy = () => {
   return (
@@ -23,9 +25,14 @@ const PrivacyPolicy = () => {
           </div>
 
           <div className="prose prose-lg max-w-none text-reclaim-charcoal/80">
-            <p className="text-lg">
-              Last updated: May 15, 2023
-            </p>
+            <div className="bg-white rounded-xl p-6 mb-8 shadow-sm border border-gray-100">
+              <p className="text-lg mb-4">
+                <strong>Last updated:</strong> June 15, 2024
+              </p>
+              <p className="text-sm text-reclaim-charcoal/70">
+                This Privacy Policy is effective immediately for new users and from July 15, 2024 for existing users.
+              </p>
+            </div>
 
             <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
               <Lock className="h-5 w-5 text-reclaim-blue" />
@@ -54,9 +61,60 @@ const PrivacyPolicy = () => {
               <li>Location information (with your permission)</li>
               <li>Log data (IP address, access times, and pages viewed)</li>
             </ul>
+            <div className="bg-reclaim-blue/5 border border-reclaim-blue/10 rounded-xl p-5 my-6">
+              <div className="flex items-start">
+                <div className="w-10 h-10 rounded-full bg-reclaim-blue/20 flex items-center justify-center mr-3 mt-1">
+                  <AlertCircle className="w-5 h-5 text-reclaim-blue" />
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-1">Special Category Data</h4>
+                  <p className="text-sm text-reclaim-charcoal/70">
+                    Our service may collect sensitive health-related data. This information is used solely to provide our recovery support services and is never shared with third parties for marketing purposes. You can withdraw consent for this data collection at any time in your account settings.
+                  </p>
+                </div>
+              </div>
+            </div>
             <p>
               <strong>Cookies and similar technologies:</strong> We use cookies and similar tracking technologies to track activity on our platform and hold certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.
             </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="text-md font-medium mb-2 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-reclaim-blue/10 flex items-center justify-center text-reclaim-blue">1</span>
+                  Essential Cookies
+                </h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Required for basic functionality and cannot be disabled.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="text-md font-medium mb-2 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-reclaim-blue/10 flex items-center justify-center text-reclaim-blue">2</span>
+                  Preference Cookies
+                </h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Remember your settings and preferences.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="text-md font-medium mb-2 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-reclaim-blue/10 flex items-center justify-center text-reclaim-blue">3</span>
+                  Analytics Cookies
+                </h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Help us improve the website by collecting anonymous data.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="text-md font-medium mb-2 flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-reclaim-blue/10 flex items-center justify-center text-reclaim-blue">4</span>
+                  Marketing Cookies
+                </h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Allow us to deliver more relevant content to you.
+                </p>
+              </div>
+            </div>
 
             <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
               <UserCheck className="h-5 w-5 text-reclaim-blue" />
@@ -91,43 +149,85 @@ const PrivacyPolicy = () => {
             </ul>
 
             <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
-              <Bell className="h-5 w-5 text-reclaim-blue" />
-              Your Rights and Choices
+              <Server className="h-5 w-5 text-reclaim-blue" />
+              Data Retention and Deletion
             </h2>
             <p>
-              You have several rights regarding your personal information:
+              We retain your personal information only for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law.
             </p>
-            <ul>
-              <li><strong>Access:</strong> You can request a copy of the personal information we hold about you.</li>
-              <li><strong>Correction:</strong> You can ask us to correct inaccurate or incomplete information.</li>
-              <li><strong>Deletion:</strong> You can request that we delete your personal information.</li>
-              <li><strong>Restriction:</strong> You can ask us to restrict the processing of your information.</li>
-              <li><strong>Data portability:</strong> You can request a copy of your data in a structured, commonly used, and machine-readable format.</li>
-              <li><strong>Objection:</strong> You can object to our processing of your personal information.</li>
-            </ul>
             <p>
-              To exercise any of these rights, please contact us using the details provided below.
+              You can request deletion of your personal information at any time by contacting us or using the deletion tools in your account settings. Upon your request, we will delete or anonymize your information so that it no longer identifies you, unless we are legally allowed or required to maintain certain information.
             </p>
 
-            <h2 className="text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
-              Data Security
-            </h2>
-            <p>
-              We implement appropriate technical and organizational measures to protect your personal information against unauthorized or unlawful processing, accidental loss, destruction, or damage. We regularly review and update our security practices to maintain the highest standards of data protection.
-            </p>
-
-            <h2 className="text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
+            <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
+              <Globe className="h-5 w-5 text-reclaim-blue" />
               International Data Transfers
             </h2>
             <p>
               We may transfer your personal information to countries outside your country of residence. When we do so, we ensure appropriate safeguards are in place to protect your information and comply with applicable data protection laws.
             </p>
+            <p>
+              For users in the European Economic Area (EEA), we rely on mechanisms such as Standard Contractual Clauses approved by the European Commission to lawfully transfer data to countries outside the EEA that do not provide an adequate level of data protection.
+            </p>
 
-            <h2 className="text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
+            <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
+              <Bell className="h-5 w-5 text-reclaim-blue" />
+              Your Rights and Choices
+            </h2>
+            <p>
+              Depending on your location, you may have the following rights regarding your personal information:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Access</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Request a copy of the personal information we hold about you.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Correction</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Request correction of inaccurate or incomplete information.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Deletion</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Request that we delete your personal information.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Restriction</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Request that we restrict the processing of your information.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Data Portability</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Request a copy of your data in a structured, commonly used format.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-gray-100 shadow-sm">
+                <h4 className="font-medium mb-2">Objection</h4>
+                <p className="text-sm text-reclaim-charcoal/70">
+                  Object to our processing of your personal information.
+                </p>
+              </div>
+            </div>
+            <p>
+              To exercise any of these rights, please contact us using the details provided below. Note that we may need to verify your identity before processing your request.
+            </p>
+
+            <h2 className="flex items-center gap-2 text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
+              <Calendar className="h-5 w-5 text-reclaim-blue" />
               Changes to This Privacy Policy
             </h2>
             <p>
-              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date at the top of this policy. You are advised to review this Privacy Policy periodically for any changes.
+              We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date at the top of this policy. For significant changes, we will provide a more prominent notice, which may include an email notification.
+            </p>
+            <p>
+              You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
             </p>
 
             <h2 className="text-reclaim-charcoal font-semibold text-xl mt-8 mb-4">
@@ -136,11 +236,20 @@ const PrivacyPolicy = () => {
             <p>
               If you have any questions about this Privacy Policy or our data practices, please contact us at:
             </p>
-            <div className="bg-white rounded-lg p-6 mt-4 shadow-sm">
+            <div className="bg-white rounded-lg p-6 mt-4 mb-8 shadow-sm border border-gray-100">
               <p><strong>Reclaim Privacy Team</strong></p>
               <p>Email: privacy@reclaim-recovery.com</p>
               <p>Address: 123 Recovery Road, Suite 400, Wellness City, WC 98765</p>
               <p>Phone: (555) 123-4567</p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+              <Link to="/terms">
+                <Button variant="outline" className="w-full sm:w-auto">View Terms of Service</Button>
+              </Link>
+              <Link to="/">
+                <Button className="w-full sm:w-auto bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">Return to Home</Button>
+              </Link>
             </div>
           </div>
         </div>
