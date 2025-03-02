@@ -44,22 +44,22 @@ const Footer = () => {
               <h3 className="font-semibold text-reclaim-charcoal mb-4">Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/recovery-paths" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/start-path" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Recovery Paths
                   </Link>
                 </li>
                 <li>
-                  <Link to="/community-support" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/community" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Community Support
                   </Link>
                 </li>
                 <li>
-                  <Link to="/progress-tracking" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/start-tracking" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Progress Tracking
                   </Link>
                 </li>
                 <li>
-                  <Link to="/journal-guides" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
+                  <Link to="/journal" className="text-reclaim-charcoal/70 hover:text-reclaim-blue transition-colors">
                     Journal Guides
                   </Link>
                 </li>
