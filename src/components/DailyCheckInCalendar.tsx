@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Calendar as CalendarIcon, Check, Info, X } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Check } from "lucide-react";
 import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 
@@ -97,14 +97,14 @@ const DailyCheckInCalendar = () => {
   };
 
   // Custom day renderer for the calendar
-  const renderDay = (day: Date) => {
+  const renderDay = (date: Date) => {
     const isCompleted = checkIns.some(
-      (checkIn) => format(checkIn.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
+      (checkIn) => format(checkIn.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
     );
 
     return (
       <div className="relative h-9 w-9 p-0 flex items-center justify-center">
-        {day.getDate()}
+        {date.getDate()}
         {isCompleted && (
           <div className="absolute right-0.5 bottom-0.5">
             <Check className="h-3 w-3 text-reclaim-teal" />
@@ -137,10 +137,10 @@ const DailyCheckInCalendar = () => {
         onSelect={handleDaySelect}
         className="rounded-md border"
         components={{
-          Day: ({ day, ...props }) => (
-            <button {...props} className={props.className}>
-              {renderDay(day)}
-            </button>
+          Day: ({ date }) => (
+            <div>
+              {renderDay(date)}
+            </div>
           )
         }}
       />
