@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { DayContent, DayContentProps } from "react-day-picker";
 
 interface CheckInDay {
   date: Date;
@@ -147,8 +147,8 @@ const DailyCheckInCalendar = () => {
   };
 
   // Custom day renderer for the calendar
-  const renderDay = (day: React.ComponentProps<typeof Calendar>["components"]["Day"]) => {
-    const date = day.date;
+  const renderDay = (props: DayContentProps) => {
+    const date = props.date;
     const isCompleted = checkIns.some(
       (checkIn) => format(checkIn.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
     );
@@ -200,7 +200,7 @@ const DailyCheckInCalendar = () => {
                 onSelect={handleDaySelect}
                 initialFocus
                 components={{
-                  Day: renderDay
+                  DayContent: renderDay
                 }}
               />
             </PopoverContent>
@@ -230,7 +230,7 @@ const DailyCheckInCalendar = () => {
           onSelect={handleDaySelect}
           className="rounded-md border"
           components={{
-            Day: renderDay
+            DayContent: renderDay
           }}
         />
       ) : (
