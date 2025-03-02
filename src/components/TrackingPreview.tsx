@@ -1,4 +1,4 @@
-<lov-codelov-code>
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Calendar, Activity, CheckCircle2 } from "lucide-react";
@@ -160,4 +160,3 @@ const TrackingPreview = () => {
 };
 
 export default TrackingPreview;
-</lov-code>
