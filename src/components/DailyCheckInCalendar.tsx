@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 interface CheckInDay {
   date: Date;
@@ -34,6 +36,7 @@ const DailyCheckInCalendar = () => {
   const [notes, setNotes] = useState("");
   const [viewingHistory, setViewingHistory] = useState(false);
   const [selectedCheckIn, setSelectedCheckIn] = useState<CheckInDay | null>(null);
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleDaySelect = (date: Date | undefined) => {
     if (!date) return;
@@ -48,6 +51,7 @@ const DailyCheckInCalendar = () => {
     setIsChecked(!!existingCheckIn?.completed);
     setNotes(existingCheckIn?.notes || "");
     setIsDialogOpen(true);
+    setCalendarOpen(false);
   };
 
   const handleSaveCheckIn = () => {
@@ -119,14 +123,44 @@ const DailyCheckInCalendar = () => {
     return streak;
   };
 
+  const handleQuickToggle = (date: Date) => {
+    const formattedDate = format(date, 'yyyy-MM-dd');
+    const existingIndex = checkIns.findIndex(
+      checkIn => format(checkIn.date, 'yyyy-MM-dd') === formattedDate
+    );
+
+    let updatedCheckIns = [...checkIns];
+    
+    if (existingIndex >= 0) {
+      // Toggle off if already checked
+      updatedCheckIns.splice(existingIndex, 1);
+    } else {
+      // Toggle on if not checked
+      updatedCheckIns.push({
+        date,
+        completed: true,
+        notes: ""
+      });
+    }
+    
+    setCheckIns(updatedCheckIns);
+  };
+
   // Custom day renderer for the calendar
-  const renderDay = (date: Date) => {
+  const renderDay = (day: React.ComponentProps<typeof Calendar>["components"]["Day"]) => {
+    const date = day.date;
     const isCompleted = checkIns.some(
       (checkIn) => format(checkIn.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
     );
 
     return (
-      <div className="relative h-9 w-9 p-0 flex items-center justify-center">
+      <div 
+        className={cn(
+          "relative h-9 w-9 p-0 flex items-center justify-center rounded-md transition-colors hover:bg-reclaim-blue/10 cursor-pointer",
+          isCompleted ? "bg-reclaim-teal/20" : ""
+        )}
+        onClick={() => handleQuickToggle(date)}
+      >
         {date.getDate()}
         {isCompleted && (
           <div className="absolute right-0.5 bottom-0.5">
@@ -148,6 +182,30 @@ const DailyCheckInCalendar = () => {
             <Flame className="mr-1 h-4 w-4" />
             <span className="font-medium">Current Streak: {streak}</span>
           </div>
+          
+          <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
+            <PopoverTrigger asChild>
+              <Button 
+                size="icon" 
+                variant="outline"
+                className="border-reclaim-blue/20 text-reclaim-blue hover:bg-reclaim-blue/5 h-9 w-9 rounded-full"
+              >
+                <CalendarIcon className="h-5 w-5" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="end">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={handleDaySelect}
+                initialFocus
+                components={{
+                  Day: renderDay
+                }}
+              />
+            </PopoverContent>
+          </Popover>
+          
           <Button 
             variant="outline" 
             size="sm" 
@@ -161,7 +219,7 @@ const DailyCheckInCalendar = () => {
       
       <div className="mb-4">
         <p className="text-reclaim-charcoal/70 mb-2">
-          Click on any day to mark your check-in. Maintaining your streak helps build consistency!
+          Click on any day to mark your check-in or use the calendar icon for a quick view. Click on days to toggle completion.
         </p>
       </div>
       
@@ -172,11 +230,7 @@ const DailyCheckInCalendar = () => {
           onSelect={handleDaySelect}
           className="rounded-md border"
           components={{
-            Day: ({ date }) => (
-              <div>
-                {renderDay(date)}
-              </div>
-            )
+            Day: renderDay
           }}
         />
       ) : (
