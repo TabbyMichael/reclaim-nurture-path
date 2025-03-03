@@ -684,7 +684,7 @@ const JoinCommunity = () => {
 
                       <div className="flex gap-3 items-start pb-4 border-b border-reclaim-charcoal/10">
                         <Avatar className="h-10 w-10">
-                          <AvatFallback className="bg-reclaim-blue/10">DR</AvatFallback>
+                          <AvatarFallback className="bg-reclaim-blue/10">DR</AvatarFallback>
                         </Avatar>
                         <div>
                           <p className="text-sm">
