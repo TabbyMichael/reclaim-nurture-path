@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -543,4 +544,29 @@ const JoinCommunity = () => {
                 <div className="rounded-xl border border-reclaim-charcoal/10 p-5 hover:shadow-sm transition-shadow">
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="font-semibold">Meditation Techniques for Beginners</h4>
-                    <Badge className="bg
+                    <Badge className="bg-reclaim-blue/5 text-reclaim-blue border-0">24 replies</Badge>
+                  </div>
+                  <p className="text-sm text-reclaim-charcoal/70 mb-3">
+                    Simple meditation practices anyone can start with, even if you've never meditated before...
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Avatar className="h-6 w-6">
+                        <AvatarFallback className="bg-reclaim-teal/10 text-xs">JP</AvatarFallback>
+                      </Avatar>
+                      <span className="text-xs text-reclaim-charcoal/50 ml-2">Started by James P.</span>
+                    </div>
+                    <Button variant="ghost" size="sm" className="h-7 text-xs text-reclaim-blue">Join Discussion</Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default JoinCommunity;
