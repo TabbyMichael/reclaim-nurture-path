@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -60,6 +60,10 @@ const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex items-center space-x-4">
+            <Link to="/admin" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors flex items-center">
+              <Shield className="h-4 w-4 mr-1" />
+              Admin
+            </Link>
             <Link to="/login">
               <Button
                 variant="outline"
@@ -123,6 +127,14 @@ const Navbar = () => {
             >
               Support
             </a>
+            <Link
+              to="/admin"
+              className="flex items-center px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <Shield className="h-4 w-4 mr-2" />
+              Admin
+            </Link>
             <div className="pt-2 space-y-2">
               <Link to="/login" className="w-full block">
                 <Button
