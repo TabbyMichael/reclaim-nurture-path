@@ -1,7 +1,7 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Shield, Users, UserPlus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CommunitySupport = () => {
   return (
@@ -69,9 +69,11 @@ const CommunitySupport = () => {
               </div>
               
               <div className="pt-4 animate-fade-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
-                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                  Join Our Community
-                </Button>
+                <Link to="/join-community">
+                  <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                    Join Our Community
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

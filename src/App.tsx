@@ -17,6 +17,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Blog from "./pages/Blog";
 import Community from "./pages/Community";
+import JoinCommunity from "./pages/JoinCommunity";
 import Journal from "./pages/Journal";
 import Emergency from "./pages/Emergency";
 import FreeTrial from "./pages/FreeTrial";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/terms" element={<TermsOfService />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/community" element={<Community />} />
+          <Route path="/join-community" element={<JoinCommunity />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/emergency" element={<Emergency />} />
           <Route path="/free-trial" element={<FreeTrial />} />
