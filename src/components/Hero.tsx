@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -37,6 +37,12 @@ const Hero = () => {
               <Link to="/start-path">
                 <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white text-lg px-8 py-6 h-auto rounded-xl">
                   Start Recovery
+                </Button>
+              </Link>
+              <Link to="/join-community">
+                <Button variant="outline" className="border-reclaim-charcoal/20 hover:bg-reclaim-charcoal/5 text-reclaim-charcoal text-lg px-8 py-6 h-auto rounded-xl">
+                  <Users className="mr-2 h-5 w-5" />
+                  Join Our Community
                 </Button>
               </Link>
               <Link to="/learn-more">
