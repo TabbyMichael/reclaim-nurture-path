@@ -1,4 +1,4 @@
-<lov-code>
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -545,4 +545,30 @@ const JoinCommunity = () => {
 
                 <div className="rounded-xl border border-reclaim-charcoal/10 p-5 hover:shadow-sm transition-shadow">
                   <div className="flex justify-between items-start mb-3">
-                    <h4 className="
+                    <h4 className="font-semibold">First Steps in Recovery</h4>
+                    <Badge className="bg-reclaim-blue/5 text-reclaim-blue border-0">24 replies</Badge>
+                  </div>
+                  <p className="text-sm text-reclaim-charcoal/70 mb-3">
+                    Community advice for those just beginning their journey and looking for direction...
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Avatar className="h-6 w-6">
+                        <AvatarFallback className="bg-reclaim-teal/10 text-xs">JP</AvatarFallback>
+                      </Avatar>
+                      <span className="text-xs text-reclaim-charcoal/50 ml-2">Started by James P.</span>
+                    </div>
+                    <Button variant="ghost" size="sm" className="h-7 text-xs text-reclaim-blue">Join Discussion</Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default JoinCommunity;
