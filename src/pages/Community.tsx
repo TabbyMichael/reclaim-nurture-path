@@ -22,10 +22,12 @@ const Community = () => {
                 Connect with others on similar journeys, share experiences, and find strength in community support.
               </p>
               <div className="animate-fade-up opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
-                <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
-                  <Users className="mr-2 h-5 w-5" />
-                  Join Now
-                </Button>
+                <Link to="/join-community">
+                  <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
+                    <Users className="mr-2 h-5 w-5" />
+                    Join Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -221,10 +223,12 @@ const Community = () => {
               <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
                 Take the first step toward a supportive recovery journey by joining our community today. Connect with others who understand what you're going through.
               </p>
-              <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
-                <Users className="mr-2 h-5 w-5" />
-                Join Our Community
-              </Button>
+              <Link to="/join-community">
+                <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
+                  <Users className="mr-2 h-5 w-5" />
+                  Join Our Community
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
