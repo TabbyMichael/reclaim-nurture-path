@@ -1,26 +1,72 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Mail, ArrowRight } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, Mail, ArrowRight, Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import LoadingSpinner from "@/components/ui/loading-spinner";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/components/ui/use-toast";
 
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isResetMode, setIsResetMode] = useState(false);
+  const { resetPassword } = useAuth();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Check if we're in password update mode (after clicking the email link)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes('type=recovery')) {
+      setIsResetMode(true);
+    }
+  }, []);
+
+  const handleRequestReset = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await resetPassword(email);
       setIsSubmitted(true);
-    }, 1500);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleSetNewPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const { error } = await supabase.auth.updateUser({ password: newPassword });
+      
+      if (error) throw error;
+      
+      toast({
+        title: "Password updated successfully",
+        description: "Your password has been changed. Please use it to log in.",
+      });
+      
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "Error updating password",
+        description: error.message || "Something went wrong",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -51,17 +97,60 @@ const PasswordReset = () => {
         
         <Card className="border-reclaim-charcoal/10 shadow-md transition-all duration-300 hover:shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold text-center">Reset Password</CardTitle>
+            <CardTitle className="text-2xl font-bold text-center">
+              {isResetMode ? "Set New Password" : "Reset Password"}
+            </CardTitle>
             <CardDescription className="text-center">
-              {!isSubmitted 
-                ? "Enter your email address below, and we'll send you a link to reset your password." 
-                : "Check your email for reset instructions."}
+              {isResetMode 
+                ? "Enter your new password below"
+                : !isSubmitted 
+                  ? "Enter your email address below, and we'll send you a link to reset your password." 
+                  : "Check your email for reset instructions."}
             </CardDescription>
           </CardHeader>
           
-          {!isSubmitted ? (
+          {isResetMode ? (
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSetNewPassword} className="space-y-4">
+                <div className="space-y-2">
+                  <div className="relative">
+                    <Input 
+                      type="password" 
+                      placeholder="New password" 
+                      className="border-reclaim-charcoal/20"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      pattern=".{8,}"
+                      title="Password must be at least 8 characters"
+                      required
+                    />
+                  </div>
+                  <p className="text-xs text-reclaim-charcoal/50">
+                    Password must be at least 8 characters
+                  </p>
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-reclaim-blue hover:bg-reclaim-blue/90 text-white transition-all"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <LoadingSpinner size="sm" color="white" />
+                      <span className="ml-2">Updating Password...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Check className="mr-2 h-4 w-4" /> Update Password
+                    </>
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          ) : !isSubmitted ? (
+            <CardContent>
+              <form onSubmit={handleRequestReset} className="space-y-4">
                 <div className="space-y-2">
                   <div className="relative">
                     <Mail className="absolute left-3 top-3 h-5 w-5 text-reclaim-charcoal/50" />
