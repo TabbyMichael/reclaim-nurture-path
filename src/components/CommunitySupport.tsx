@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
@@ -29,7 +30,7 @@ const CommunitySupport = () => {
           <div className="relative">
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                src="https://www.youtube.com/embed/your-youtube-video-id"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
                 title="Community Support Video"
                 allowFullScreen
                 className="rounded-2xl shadow-lg"
