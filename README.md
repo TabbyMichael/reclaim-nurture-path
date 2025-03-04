@@ -7,7 +7,7 @@ Welcome to **Reclaim**, a web application designed to empower individuals on the
 ## Our Mission
 **Empowering individuals to reclaim their lives from addiction and behavioral challenges through compassionate technology and community support.**
 
-![Our Mission](https://github.com/your-username/reclaim/blob/main/images/mission.png)  
+![Our Mission](public/1.png)  
 *Caption: Reclaim's mission is to empower individuals through technology and community.*
 
 ---
@@ -24,7 +24,7 @@ Today, Reclaim serves thousands of individuals on their recovery journeys, provi
 > **Alex Johnson**  
 > Founder & CEO
 
-![Our Story](https://github.com/your-username/reclaim/blob/main/images/story.png)  
+![Our Story]public/2.png)  
 *Caption: Reclaim was born from a personal journey of recovery and transformation.*
 
 ---
@@ -38,7 +38,7 @@ Today, Reclaim serves thousands of individuals on their recovery journeys, provi
 - **Continuous Growth**: We are committed to ongoing improvement, both in our platform and in supporting the personal growth of our users.  
 - **Innovative Solutions**: We harness the power of technology to create intuitive, accessible tools that make recovery management more effective.
 
-![Our Values](https://github.com/your-username/reclaim/blob/main/images/values.png)  
+![Our Values](public/3.png)  
 *Caption: Our values guide everything we do at Reclaim.*
 
 ---
@@ -59,7 +59,7 @@ Since our founding, Reclaim has been privileged to be part of thousands of recov
 > *"The emergency support feature helped me through several critical moments when I was close to relapse. I'm grateful for this thoughtful platform."*  
 > **Sarah T.** - 8 months in recovery  
 
-![Our Impact](https://github.com/your-username/reclaim/blob/main/images/impact.png)  
+![Our Impact](public/4.png)  
 *Caption: Reclaim has positively impacted thousands of lives.*
 
 ---
@@ -73,7 +73,7 @@ Our diverse team brings together expertise in addiction recovery, mental health,
 - **Emily Chen** - Head of Product  
 - **Marcus Wilson** - Chief Technology Officer  
 
-![Our Team](https://github.com/your-username/reclaim/blob/main/images/team.png)  
+![Our Team](public/2.png)  
 *Caption: Meet the passionate team behind Reclaim.*
 
 ---
@@ -91,7 +91,7 @@ Reclaim is built using a modern and efficient tech stack to deliver a seamless u
 - **Backend**:  
   - [Supabase](https://supabase.io/) - An open-source Firebase alternative for authentication and database functionality.  
 
-![Tech Stack](https://github.com/your-username/reclaim/blob/main/images/tech-stack.png)  
+![Tech Stack](public/1.png)  
 *Caption: Reclaim is built with a modern and efficient tech stack.*
 
 ---
@@ -103,7 +103,7 @@ Reclaim is built using a modern and efficient tech stack to deliver a seamless u
 - **Recovery Paths**: Personalized recovery plans based on evidence-based practices.  
 - **Emergency Support**: Immediate assistance during critical moments.  
 
-![Features](https://github.com/your-username/reclaim/blob/main/images/features.png)  
+![Features](public/4.png)  
 *Caption: Explore Reclaim's powerful features designed for recovery.*
 
 ---
