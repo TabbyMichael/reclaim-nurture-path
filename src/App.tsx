@@ -1,16 +1,17 @@
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Index from "./pages/Index";
 import Community from "./pages/Community";
 import JoinCommunity from "./pages/JoinCommunity";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
-import Contact from "./pages/Contact";
+import Signup from "./pages/Signup"; // Changed from SignUp to Signup
+import ContactUs from "./pages/ContactUs"; // Changed from Contact to ContactUs
 import About from "./pages/About";
-import PageNotFound from "./pages/PageNotFound";
-import PasswordReset from "./pages/PasswordReset";
-import Terms from "./pages/Terms";
-import Privacy from "./pages/Privacy";
+import NotFound from "./pages/NotFound"; // Changed from PageNotFound to NotFound
+import PasswordReset from "./pages/PasswordReset"; // Will create this
+import TermsOfService from "./pages/TermsOfService"; // Changed from Terms to TermsOfService
+import PrivacyPolicy from "./pages/PrivacyPolicy"; // Changed from Privacy to PrivacyPolicy
 import { Toaster } from "@/components/ui/toaster"
 import PageTransition from "@/components/PageTransition";
 
@@ -24,13 +25,13 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/join-community" element={<JoinCommunity />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="/about" element={<About />} />
             <Route path="/reset-password" element={<PasswordReset />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="*" element={<PageNotFound />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </PageTransition>
         <Toaster />
