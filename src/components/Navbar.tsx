@@ -51,9 +51,9 @@ const Navbar = () => {
             <a href="#recovery" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
               Recovery Paths
             </a>
-            <a href="#community" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
+            <Link to="/community" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
               Community
-            </a>
+            </Link>
             <a href="#support" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
               Support
             </a>
@@ -113,13 +113,13 @@ const Navbar = () => {
             >
               Recovery Paths
             </a>
-            <a
-              href="#community"
+            <Link
+              to="/community"
               className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Community
-            </a>
+            </Link>
             <a
               href="#support"
               className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
