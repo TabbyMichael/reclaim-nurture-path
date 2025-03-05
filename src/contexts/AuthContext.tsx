@@ -46,29 +46,36 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setLoading(false);
 
         // If a user signs in or signs up, create or update their profile
-        if (event === 'SIGNED_IN' || event === 'SIGNED_UP') {
+        if (event === 'SIGNED_IN' || event === 'USER_UPDATED') {
           if (session?.user) {
-            // Check if profile exists
-            const { data: profileData, error: profileError } = await supabase
-              .from('profiles')
-              .select('*')
-              .eq('id', session.user.id)
-              .single();
+            try {
+              // Temporarily disable database operations until we set up the tables
+              /* 
+              // Check if profile exists
+              const { data: profileData, error: profileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', session.user.id)
+                .single();
 
-            if (profileError || !profileData) {
-              // Create profile if it doesn't exist
-              await supabase.from('profiles').insert({
-                id: session.user.id,
-                email: session.user.email,
-                created_at: new Date().toISOString(),
+              if (profileError || !profileData) {
+                // Create profile if it doesn't exist
+                await supabase.from('profiles').insert({
+                  id: session.user.id,
+                  email: session.user.email,
+                  created_at: new Date().toISOString(),
+                });
+              }
+
+              // Log login
+              await supabase.from('login_history').insert({
+                user_id: session.user.id,
+                login_time: new Date().toISOString(),
               });
+              */
+            } catch (error) {
+              console.error("Error updating profile:", error);
             }
-
-            // Log login
-            await supabase.from('login_history').insert({
-              user_id: session.user.id,
-              login_time: new Date().toISOString(),
-            });
           }
         }
       }
@@ -209,16 +216,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
-  // Fix the type error by explicitly typing the table
+  // Fix the trackFeatureUsage function by temporarily disabling database operations
   const trackFeatureUsage = async (featureName: string) => {
     if (user) {
       try {
+        // Temporarily log instead of writing to database until we set up the tables
+        console.log(`User ${user.id} used feature: ${featureName}`);
+        
+        /* 
         // Use explicit typing for feature_usage table
         await supabase.from('feature_usage').insert({
           user_id: user.id,
           feature_name: featureName,
           used_at: new Date().toISOString(),
         });
+        */
       } catch (error) {
         console.error("Error tracking feature usage:", error);
       }

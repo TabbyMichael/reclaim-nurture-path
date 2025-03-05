@@ -32,7 +32,9 @@ const Signup = () => {
     
     setLoading(true);
     try {
-      await signUp(email, password, firstName, lastName);
+      // Fixed: only passing email and password to signUp function
+      await signUp(email, password);
+      // Additional user profile data should be handled separately
     } catch (error) {
       console.error(error);
     } finally {

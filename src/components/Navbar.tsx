@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const { user, trackFeatureUsage } = useAuth();
+  const { user, signOut, trackFeatureUsage } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
@@ -161,10 +160,7 @@ const Navbar = () => {
                     className="w-full justify-start text-red-600 hover:bg-red-50"
                     onClick={() => {
                       setIsOpen(false);
-                      // Use the signOut function from AuthContext
-                      if (typeof signOut === 'function') {
-                        signOut();
-                      }
+                      signOut();
                     }}
                   >
                     Sign out
