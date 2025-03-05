@@ -39,7 +39,7 @@ const Hero = () => {
                   Start Recovery
                 </Button>
               </Link>
-              <Link to="/learn-more">
+              <Link to="/about">
                 <Button variant="outline" className="border-reclaim-charcoal/20 hover:bg-reclaim-charcoal/5 text-reclaim-charcoal text-lg px-8 py-6 h-auto rounded-xl">
                   <span>Learn More</span>
                   <ArrowRight className="ml-2 h-5 w-5" />

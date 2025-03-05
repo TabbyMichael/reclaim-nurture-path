@@ -125,7 +125,7 @@ const RecoveryPath = () => {
                     Start This Path
                   </Button>
                 </Link>
-                <Link to="/learn-more">
+                <Link to="/about">
                   <Button variant="outline" className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10">
                     Learn More
                   </Button>

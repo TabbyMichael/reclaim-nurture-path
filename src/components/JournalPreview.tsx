@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { BookOpen, PencilLine, Sparkles, Lightbulb } from "lucide-react";
@@ -69,13 +68,12 @@ const JournalPreview = () => {
                 </div>
               </div>
               
-              <div className="pt-4 animate-fade-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
-                <Link to="/journal">
-                  <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                    Start Journaling
-                  </Button>
-                </Link>
-              </div>
+            <div className="pt-4 animate-fade-up opacity-0" style={{ animationDelay: "0.5s", animationFillMode: "forwards" }}>
+              <Link to="/journal">
+                <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                  Start Journaling
+                </Button>
+              </Link>
             </div>
           </div>
           
