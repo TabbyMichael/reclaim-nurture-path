@@ -1,23 +1,12 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Users, MessageSquare, CalendarDays, User, Clock, Heart } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
-import LoadingSpinner from "@/components/ui/loading-spinner";
 
 const Community = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  
-  const handleJoinClick = () => {
-    setIsLoading(true);
-    // Simulate loading for 800ms before navigating
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-  };
-
   return (
     <div className="min-h-screen bg-reclaim-sand">
       <Navbar />
@@ -33,14 +22,10 @@ const Community = () => {
                 Connect with others on similar journeys, share experiences, and find strength in community support.
               </p>
               <div className="animate-fade-up opacity-0" style={{ animationDelay: "0.3s", animationFillMode: "forwards" }}>
-                <Link to="/join-community" onClick={handleJoinClick}>
-                  <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl transition-transform hover:scale-105 active:scale-95">
-                    {isLoading ? (
-                      <LoadingSpinner size="sm" color="blue" />
-                    ) : (
-                      <Users className="mr-2 h-5 w-5" />
-                    )}
-                    {isLoading ? "Loading..." : "Join Now"}
+                <Link to="/join-community">
+                  <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
+                    <Users className="mr-2 h-5 w-5" />
+                    Join Now
                   </Button>
                 </Link>
               </div>
@@ -64,7 +49,7 @@ const Community = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <div className="glass-card rounded-2xl p-8">
                 <div className="w-14 h-14 rounded-full bg-reclaim-blue/10 flex items-center justify-center mb-6">
                   <MessageSquare className="w-7 h-7 text-reclaim-blue" />
                 </div>
@@ -72,13 +57,10 @@ const Community = () => {
                 <p className="text-reclaim-charcoal/70 mb-4">
                   Topic-specific forums moderated by recovery professionals where you can share experiences and ask questions.
                 </p>
-                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80 inline-flex items-center group">
-                  View Forums 
-                  <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
+                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80">View Forums →</a>
               </div>
 
-              <div className="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <div className="glass-card rounded-2xl p-8">
                 <div className="w-14 h-14 rounded-full bg-reclaim-blue/10 flex items-center justify-center mb-6">
                   <CalendarDays className="w-7 h-7 text-reclaim-blue" />
                 </div>
@@ -86,13 +68,10 @@ const Community = () => {
                 <p className="text-reclaim-charcoal/70 mb-4">
                   Regular video meetings led by certified counselors, focused on different recovery topics and challenges.
                 </p>
-                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80 inline-flex items-center group">
-                  Join a Meeting
-                  <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
+                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80">Join a Meeting →</a>
               </div>
 
-              <div className="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+              <div className="glass-card rounded-2xl p-8">
                 <div className="w-14 h-14 rounded-full bg-reclaim-blue/10 flex items-center justify-center mb-6">
                   <User className="w-7 h-7 text-reclaim-blue" />
                 </div>
@@ -100,10 +79,7 @@ const Community = () => {
                 <p className="text-reclaim-charcoal/70 mb-4">
                   Connect one-on-one with a matched accountability partner who understands your specific recovery journey.
                 </p>
-                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80 inline-flex items-center group">
-                  Find a Partner
-                  <span className="ml-1 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </a>
+                <a href="#" className="text-reclaim-blue hover:text-reclaim-blue/80">Find a Partner →</a>
               </div>
             </div>
           </div>
@@ -247,14 +223,10 @@ const Community = () => {
               <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
                 Take the first step toward a supportive recovery journey by joining our community today. Connect with others who understand what you're going through.
               </p>
-              <Link to="/join-community" onClick={handleJoinClick}>
-                <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl transition-transform hover:scale-105 active:scale-95">
-                  {isLoading ? (
-                    <LoadingSpinner size="sm" color="blue" />
-                  ) : (
-                    <Users className="mr-2 h-5 w-5" />
-                  )}
-                  {isLoading ? "Loading..." : "Join Our Community"}
+              <Link to="/join-community">
+                <Button className="bg-white hover:bg-white/90 text-reclaim-blue px-8 py-6 h-auto text-lg rounded-xl">
+                  <Users className="mr-2 h-5 w-5" />
+                  Join Our Community
                 </Button>
               </Link>
             </div>

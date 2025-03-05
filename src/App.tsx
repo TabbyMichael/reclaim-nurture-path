@@ -1,61 +1,65 @@
-
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import Community from "./pages/Community";
-import JoinCommunity from "./pages/JoinCommunity";
+import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import HelpCenter from "./pages/HelpCenter";
+import EmergencyResources from "./pages/EmergencyResources";
 import ContactUs from "./pages/ContactUs";
+import FAQ from "./pages/FAQ";
 import About from "./pages/About";
-import NotFound from "./pages/NotFound";
-import PasswordReset from "./pages/PasswordReset";
-import TermsOfService from "./pages/TermsOfService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import { Toaster } from "@/components/ui/toaster";
-import PageTransition from "@/components/PageTransition";
-import { AuthProvider } from './contexts/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
+import TermsOfService from "./pages/TermsOfService";
+import Blog from "./pages/Blog";
+import Community from "./pages/Community";
+import JoinCommunity from "./pages/JoinCommunity";
+import Journal from "./pages/Journal";
+import Emergency from "./pages/Emergency";
+import FreeTrial from "./pages/FreeTrial";
+import StartTracking from "./pages/StartTracking";
+import StartPath from "./pages/StartPath";
+import LearnMore from "./pages/LearnMore";
+import Admin from "./pages/Admin";
 
-function App() {
-  return (
-    <>
+const queryClient = new QueryClient();
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
       <BrowserRouter>
-        <AuthProvider>
-          <PageTransition>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route 
-                path="/community" 
-                element={
-                  <ProtectedRoute>
-                    <Community />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route
-                path="/join-community"
-                element={
-                  <ProtectedRoute>
-                    <JoinCommunity />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/reset-password" element={<PasswordReset />} />
-              <Route path="/terms" element={<TermsOfService />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </PageTransition>
-          <Toaster />
-        </AuthProvider>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/help-center" element={<HelpCenter />} />
+          <Route path="/emergency-resources" element={<EmergencyResources />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/community" element={<Community />} />
+          <Route path="/join-community" element={<JoinCommunity />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/emergency" element={<Emergency />} />
+          <Route path="/free-trial" element={<FreeTrial />} />
+          <Route path="/start-tracking" element={<StartTracking />} />
+          <Route path="/start-path" element={<StartPath />} />
+          <Route path="/learn-more" element={<LearnMore />} />
+          <Route path="/admin" element={<Admin />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
-    </>
-  );
-}
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
