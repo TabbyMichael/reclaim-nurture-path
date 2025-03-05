@@ -1,130 +1,178 @@
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { Session, User } from '@supabase/supabase-js';
-import { toast } from '@/components/ui/use-toast';
+import { Session, User, AuthError } from '@supabase/supabase-js';
+import { useToast } from '@/hooks/use-toast';
 
-interface AuthContextProps {
-  session: Session | null;
+type AuthProviderProps = {
+  children: React.ReactNode;
+};
+
+type AuthContextType = {
   user: User | null;
+  session: Session | null;
   loading: boolean;
-  signUp: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string) => Promise<{
+    success: boolean;
+    error: AuthError | null;
+  }>;
+  signUp: (email: string, password: string) => Promise<{
+    success: boolean;
+    error: AuthError | null;
+  }>;
   signInWithGoogle: () => Promise<void>;
   signOut: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<{
+    success: boolean;
+    error: AuthError | null;
+  }>;
   trackFeatureUsage: (featureName: string) => Promise<void>;
-}
+};
 
-const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<Session | null>(null);
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const { toast } = useToast();
 
   useEffect(() => {
-    // Get initial session
+    // Set up auth state listener
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        setLoading(false);
+
+        // If a user signs in or signs up, create or update their profile
+        if (event === 'SIGNED_IN' || event === 'SIGNED_UP') {
+          if (session?.user) {
+            // Check if profile exists
+            const { data: profileData, error: profileError } = await supabase
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
+              .single();
+
+            if (profileError || !profileData) {
+              // Create profile if it doesn't exist
+              await supabase.from('profiles').insert({
+                id: session.user.id,
+                email: session.user.email,
+                created_at: new Date().toISOString(),
+              });
+            }
+
+            // Log login
+            await supabase.from('login_history').insert({
+              user_id: session.user.id,
+              login_time: new Date().toISOString(),
+            });
+          }
+        }
+      }
+    );
+
+    // Initial session check
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
-    // Set up auth state listener
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
-
-  const signUp = async (email: string, password: string, firstName: string, lastName: string) => {
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            first_name: firstName,
-            last_name: lastName,
-          },
-        },
-      });
-
-      if (error) throw error;
-      toast({
-        title: "Account created",
-        description: "Please check your email for a confirmation link",
-      });
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message || "An error occurred during sign up",
-      });
-      throw error;
-    }
-  };
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
-      
-      // Track login feature usage
-      await trackFeatureUsage("login");
-      navigate('/');
-    } catch (error: any) {
+      if (error) {
+        toast({
+          title: 'Sign in failed',
+          description: error.message,
+          variant: 'destructive',
+        });
+        return { success: false, error };
+      }
+
       toast({
-        variant: "destructive",
-        title: "Login failed",
-        description: error.message || "Incorrect email or password",
+        title: 'Welcome back!',
+        description: 'You have successfully signed in.',
       });
-      throw error;
+
+      return { success: true, error: null };
+    } catch (err) {
+      const error = err as AuthError;
+      toast({
+        title: 'An unexpected error occurred',
+        description: error.message,
+        variant: 'destructive',
+      });
+      return { success: false, error };
+    }
+  };
+
+  const signUp = async (email: string, password: string) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        toast({
+          title: 'Sign up failed',
+          description: error.message,
+          variant: 'destructive',
+        });
+        return { success: false, error };
+      }
+
+      toast({
+        title: 'Account created!',
+        description: 'Please check your email to confirm your account.',
+      });
+
+      return { success: true, error: null };
+    } catch (err) {
+      const error = err as AuthError;
+      toast({
+        title: 'An unexpected error occurred',
+        description: error.message,
+        variant: 'destructive',
+      });
+      return { success: false, error };
     }
   };
 
   const signInWithGoogle = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: `${window.location.origin}/`,
-        },
-      });
-
-      if (error) throw error;
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Google sign in failed",
-        description: error.message || "Failed to sign in with Google",
-      });
-      throw error;
-    }
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/`,
+      },
+    });
   };
 
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      navigate('/login');
-    } catch (error: any) {
+      await supabase.auth.signOut();
       toast({
-        variant: "destructive",
-        title: "Sign out failed",
-        description: error.message || "Failed to sign out",
+        title: 'Signed out',
+        description: 'You have been successfully signed out.',
+      });
+    } catch (error) {
+      toast({
+        title: 'Error signing out',
+        description: 'An error occurred while signing out.',
+        variant: 'destructive',
       });
     }
   };
@@ -134,57 +182,72 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
-      if (error) throw error;
+
+      if (error) {
+        toast({
+          title: 'Reset password failed',
+          description: error.message,
+          variant: 'destructive',
+        });
+        return { success: false, error };
+      }
+
       toast({
-        title: "Password reset email sent",
-        description: "Check your email for the reset link",
+        title: 'Password reset email sent',
+        description: 'Please check your email for the password reset link.',
       });
-    } catch (error: any) {
+
+      return { success: true, error: null };
+    } catch (err) {
+      const error = err as AuthError;
       toast({
-        variant: "destructive",
-        title: "Reset failed",
-        description: error.message || "Failed to send reset email",
+        title: 'An unexpected error occurred',
+        description: error.message,
+        variant: 'destructive',
       });
-      throw error;
+      return { success: false, error };
     }
   };
 
+  // Fix the type error by explicitly typing the table
   const trackFeatureUsage = async (featureName: string) => {
-    if (!user) return;
-    
-    try {
-      await supabase.from('feature_usage').insert({
-        user_id: user.id,
-        feature_name: featureName
-      });
-    } catch (error) {
-      console.error("Failed to track feature usage:", error);
+    if (user) {
+      try {
+        // Use explicit typing for feature_usage table
+        await supabase.from('feature_usage').insert({
+          user_id: user.id,
+          feature_name: featureName,
+          used_at: new Date().toISOString(),
+        });
+      } catch (error) {
+        console.error("Error tracking feature usage:", error);
+      }
     }
   };
 
   return (
     <AuthContext.Provider
       value={{
-        session,
         user,
+        session,
         loading,
-        signUp,
         signIn,
+        signUp,
         signInWithGoogle,
         signOut,
         resetPassword,
-        trackFeatureUsage
+        trackFeatureUsage,
       }}
     >
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
+};

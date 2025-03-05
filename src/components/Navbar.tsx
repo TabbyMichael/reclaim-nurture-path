@@ -161,7 +161,10 @@ const Navbar = () => {
                     className="w-full justify-start text-red-600 hover:bg-red-50"
                     onClick={() => {
                       setIsOpen(false);
-                      // signOut will be called here
+                      // Use the signOut function from AuthContext
+                      if (typeof signOut === 'function') {
+                        signOut();
+                      }
                     }}
                   >
                     Sign out
