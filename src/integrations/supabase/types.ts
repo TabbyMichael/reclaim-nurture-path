@@ -9,13 +9,127 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      journals: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string
+          mood: string | null
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          mood?: string | null
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          mood?: string | null
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "journals_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      tracking: {
+        Row: {
+          coping_strategies: string[] | null
+          created_at: string | null
+          date: string
+          id: string
+          notes: string | null
+          success: boolean | null
+          triggers: string[] | null
+          updated_at: string | null
+          urge_level: number | null
+          user_id: string
+        }
+        Insert: {
+          coping_strategies?: string[] | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          notes?: string | null
+          success?: boolean | null
+          triggers?: string[] | null
+          updated_at?: string | null
+          urge_level?: number | null
+          user_id: string
+        }
+        Update: {
+          coping_strategies?: string[] | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          notes?: string | null
+          success?: boolean | null
+          triggers?: string[] | null
+          updated_at?: string | null
+          urge_level?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracking_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_profile: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never
