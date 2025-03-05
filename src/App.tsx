@@ -26,6 +26,7 @@ import StartTracking from "./pages/StartTracking";
 import StartPath from "./pages/StartPath";
 import LearnMore from "./pages/LearnMore";
 import Admin from "./pages/Admin";
+import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/reset-password-confirm" element={<ResetPasswordConfirm />} />
             <Route path="/help-center" element={<HelpCenter />} />
             <Route path="/emergency-resources" element={<EmergencyResources />} />
             <Route path="/contact-us" element={<ContactUs />} />

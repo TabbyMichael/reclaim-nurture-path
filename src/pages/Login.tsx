@@ -1,23 +1,36 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Mail, Lock, LogIn } from "lucide-react";
+import { ArrowLeft, Mail, Lock, LogIn, AlertCircle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { signIn, user } = useAuth();
+  const { signIn, user, resetPassword } = useAuth();
   const { toast } = useToast();
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [isResetting, setIsResetting] = useState(false);
 
   useEffect(() => {
     // Redirect if already logged in
@@ -28,13 +41,10 @@ const Login = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     
     if (!email || !password) {
-      toast({
-        title: "Missing fields",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
+      setErrorMessage("Please fill in all fields");
       return;
     }
     
@@ -42,11 +52,37 @@ const Login = () => {
       setIsLoading(true);
       await signIn(email, password);
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      // Error is handled in the signIn function
+      setErrorMessage(error.message || "Failed to sign in. Please try again.");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resetEmail) {
+      toast({
+        title: "Email required",
+        description: "Please enter your email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      setIsResetting(true);
+      await resetPassword(resetEmail);
+      setResetDialogOpen(false);
+      // Reset form
+      setResetEmail("");
+    } catch (error) {
+      console.error("Password reset error:", error);
+      // Error is handled in the resetPassword function
+    } finally {
+      setIsResetting(false);
     }
   };
 
@@ -81,6 +117,16 @@ const Login = () => {
               Continue your journey toward recovery
             </CardDescription>
           </CardHeader>
+          
+          {errorMessage && (
+            <div className="px-6">
+              <Alert variant="destructive" className="mb-4">
+                <AlertCircle className="h-4 w-4 mr-2" />
+                <AlertDescription>{errorMessage}</AlertDescription>
+              </Alert>
+            </div>
+          )}
+          
           <form onSubmit={handleLogin}>
             <CardContent className="space-y-4">
               <Button 
@@ -144,9 +190,13 @@ const Login = () => {
                   />
                   <label htmlFor="remember" className="text-sm text-reclaim-charcoal/70">Remember me</label>
                 </div>
-                <Link to="/reset-password" className="text-sm text-reclaim-blue hover:underline">
+                <button 
+                  type="button" 
+                  onClick={() => setResetDialogOpen(true)}
+                  className="text-sm text-reclaim-blue hover:underline"
+                >
                   Forgot password?
-                </Link>
+                </button>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
@@ -188,6 +238,49 @@ const Login = () => {
           </p>
         </div>
       </div>
+      
+      {/* Password Reset Dialog */}
+      <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Reset your password</DialogTitle>
+            <DialogDescription>
+              Enter your email address and we'll send you a link to reset your password.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleResetPassword}>
+            <div className="space-y-4 py-4">
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-5 w-5 text-reclaim-charcoal/50" />
+                <Input 
+                  type="email" 
+                  placeholder="Email address" 
+                  className="pl-10 border-reclaim-charcoal/20"
+                  value={resetEmail}
+                  onChange={(e) => setResetEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button type="button" variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button type="submit" disabled={isResetting}>
+                {isResetting ? (
+                  <span className="flex items-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Sending...
+                  </span>
+                ) : "Send reset link"}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
