@@ -1,163 +1,113 @@
-
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Menu, X, Shield } from "lucide-react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { BookText, LogOut, Settings, User, Bell } from "lucide-react";
+import { useLocation } from 'react-router-dom';
+import logo from '../assets/reclaim-logo-light.svg';
+
+// Import the NotificationCenter and GlobalSearch components
+import { NotificationCenter } from "@/components/NotificationCenter";
+import { GlobalSearch } from "@/components/GlobalSearch";
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isAuthenticated, logout, user } = useAuth();
+  const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  const isLoginPage = location.pathname === '/login';
+  const isSignupPage = location.pathname === '/signup';
 
   return (
-    <header
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-sm"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 rounded-full bg-reclaim-blue flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">R</span>
-              </div>
-              <span className="font-semibold text-xl tracking-tight text-reclaim-charcoal">
-                Reclaim
-              </span>
-            </Link>
-          </div>
+    <div className="bg-reclaim-blue text-white sticky top-0 z-50">
+      <div className="container mx-auto py-4 px-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center">
+          <img src={logo} alt="Reclaim Logo" className="h-8 mr-2" />
+          <span className="font-bold text-xl">Reclaim</span>
+        </Link>
 
-          <nav className="hidden md:flex space-x-8">
-            <a href="#features" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
-              Features
-            </a>
-            <a href="#recovery" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
-              Recovery Paths
-            </a>
-            <Link to="/community" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
-              Community
-            </Link>
-            <a href="#support" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors">
-              Support
-            </a>
-          </nav>
+        {/* Conditionally render navigation links based on authentication status */}
+        <div className="hidden md:flex items-center space-x-4">
+          <Link to="/about" className="hover:text-gray-200">About</Link>
+          <Link to="/community" className="hover:text-gray-200">Community</Link>
+          <Link to="/resources" className="hover:text-gray-200">Resources</Link>
+          <Link to="/help-center" className="hover:text-gray-200">Help</Link>
+        </div>
 
-          <div className="hidden md:flex items-center space-x-4">
-            <Link to="/admin" className="text-reclaim-charcoal/80 hover:text-reclaim-blue transition-colors flex items-center">
-              <Shield className="h-4 w-4 mr-1" />
-              Admin
-            </Link>
-            <Link to="/login">
-              <Button
-                variant="outline"
-                className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
-              >
-                Log in
-              </Button>
-            </Link>
-            <Link to="/signup">
-              <Button className="bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
-                Get Started
-              </Button>
-            </Link>
-          </div>
-
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-reclaim-charcoal p-2"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+        {/* User navigation (Login/Signup or User Menu) */}
+        <div className="flex items-center space-x-1">
+          <GlobalSearch />
+          <NotificationCenter />
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Avatar className="h-10 w-10 border border-muted">
+                    <AvatarImage
+                      src={user?.user_metadata?.avatar_url || "/placeholder.svg"}
+                      alt={user?.email || "User"}
+                    />
+                    <AvatarFallback>
+                      {user?.email?.charAt(0)?.toUpperCase() || "U"}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <Link to="/profile">
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/journal">
+                  <DropdownMenuItem>
+                    <BookText className="mr-2 h-4 w-4" />
+                    <span>Journal</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/account/settings">
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link to="/account/notifications">
+                  <DropdownMenuItem>
+                    <Bell className="mr-2 h-4 w-4" />
+                    <span>Notifications</span>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <div className="flex items-center space-x-2">
+              {!isLoginPage && <Link to="/login">
+                <Button variant="outline">Log in</Button>
+              </Link>}
+              {!isSignupPage && <Link to="/signup">
+                <Button>Sign up</Button>
+              </Link>}
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white shadow-md overflow-hidden animate-fade-in">
-          <div className="px-4 py-4 space-y-3">
-            <a
-              href="#features"
-              className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Features
-            </a>
-            <a
-              href="#recovery"
-              className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Recovery Paths
-            </a>
-            <Link
-              to="/community"
-              className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Community
-            </Link>
-            <a
-              href="#support"
-              className="block px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Support
-            </a>
-            <Link
-              to="/admin"
-              className="flex items-center px-4 py-3 rounded-md text-reclaim-charcoal hover:bg-reclaim-lightBlue/20 transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              <Shield className="h-4 w-4 mr-2" />
-              Admin
-            </Link>
-            <div className="pt-2 space-y-2">
-              <Link to="/login" className="w-full block">
-                <Button
-                  variant="outline"
-                  className="w-full border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Log in
-                </Button>
-              </Link>
-              <Link to="/signup" className="w-full block">
-                <Button 
-                  className="w-full bg-reclaim-blue hover:bg-reclaim-blue/90 text-white"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-    </header>
+    </div>
   );
 };
 
