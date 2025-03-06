@@ -28,6 +28,11 @@ import LearnMore from "./pages/LearnMore";
 import Admin from "./pages/Admin";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
 import Dashboard from "./pages/Dashboard";
+import UserProfile from "./pages/UserProfile";
+import CommunityForum from "./pages/CommunityForum";
+import EducationalResources from "./pages/EducationalResources";
+import GuidedExercises from "./pages/GuidedExercises";
+import SuccessStories from "./pages/SuccessStories";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +66,14 @@ const App = () => (
             <Route path="/learn-more" element={<LearnMore />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            
+            {/* New Community and Content Routes */}
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/community/forum" element={<CommunityForum />} />
+            <Route path="/educational-resources" element={<EducationalResources />} />
+            <Route path="/guided-exercises" element={<GuidedExercises />} />
+            <Route path="/success-stories" element={<SuccessStories />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
