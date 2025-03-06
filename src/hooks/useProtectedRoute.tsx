@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
 export function useProtectedRoute() {
-  const { user, isLoading } = useAuth();
+  const { user, session, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -47,8 +47,11 @@ export function useProtectedRoute() {
     }
   }, [user, isLoading, navigate, location.pathname, toast]);
 
+  // Return both useProtectedRoute properties and original auth context properties
   return { 
     isAuthenticated, 
-    isLoading: isLoading || isCheckingAuth 
+    isLoading: isLoading || isCheckingAuth,
+    user,
+    getProfile: useAuth().getProfile
   };
 }

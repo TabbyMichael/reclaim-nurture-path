@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -20,11 +21,13 @@ import { NotificationCenter } from "@/components/NotificationCenter";
 import { GlobalSearch } from "@/components/GlobalSearch";
 
 const Navbar = () => {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { user, session, signOut } = useAuth();
   const location = useLocation();
 
   const isLoginPage = location.pathname === '/login';
   const isSignupPage = location.pathname === '/signup';
+  // Check if user is authenticated based on session
+  const isAuthenticated = !!session;
 
   return (
     <div className="bg-reclaim-blue text-white sticky top-0 z-50">
@@ -89,7 +92,7 @@ const Navbar = () => {
                   </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout}>
+                <DropdownMenuItem onClick={signOut}>
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>Log out</span>
                 </DropdownMenuItem>

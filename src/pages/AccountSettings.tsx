@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 import { supabase } from "@/integrations/supabase/client";
@@ -18,7 +17,10 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const AccountSettings = () => {
-  const { isAuthenticated, isLoading: authChecking, user, getProfile } = useProtectedRoute();
+  // Get auth protection
+  const { isAuthenticated, isLoading: authChecking } = useProtectedRoute();
+  // Get user data from auth context directly
+  const { user, getProfile } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
   
@@ -41,9 +43,9 @@ const AccountSettings = () => {
     allowDataCollection: true,
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadSettings = async () => {
-      if (isAuthenticated) {
+      if (isAuthenticated && user) {
         try {
           // Get user profile
           const profileData = await getProfile();
@@ -65,10 +67,10 @@ const AccountSettings = () => {
       }
     };
 
-    if (isAuthenticated && !authChecking) {
+    if (isAuthenticated && !authChecking && user) {
       loadSettings();
     }
-  }, [isAuthenticated, authChecking, getProfile, toast]);
+  }, [isAuthenticated, authChecking, user, getProfile, toast]);
 
   const handleNotificationChange = (key: string, value: boolean) => {
     setNotifications({
