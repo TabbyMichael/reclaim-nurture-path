@@ -27,6 +27,7 @@ import StartPath from "./pages/StartPath";
 import LearnMore from "./pages/LearnMore";
 import Admin from "./pages/Admin";
 import ResetPasswordConfirm from "./pages/ResetPasswordConfirm";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/start-path" element={<StartPath />} />
             <Route path="/learn-more" element={<LearnMore />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

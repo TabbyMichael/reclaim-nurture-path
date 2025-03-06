@@ -10,17 +10,25 @@ export function useProtectedRoute() {
   const location = useLocation();
   const { toast } = useToast();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   useEffect(() => {
     if (!isLoading) {
+      setIsCheckingAuth(false);
+      
       if (!user) {
         // Store the current path to redirect back after login
         sessionStorage.setItem("redirectPath", location.pathname);
+        
+        // Detect if user is on mobile
+        const isMobile = window.innerWidth < 768;
         
         toast({
           title: "Authentication required",
           description: "Please log in to access this page",
           variant: "destructive",
+          // Shorter duration on mobile for better UX
+          duration: isMobile ? 3000 : 5000,
         });
         
         navigate("/login", { replace: true });
@@ -39,5 +47,8 @@ export function useProtectedRoute() {
     }
   }, [user, isLoading, navigate, location.pathname, toast]);
 
-  return { isAuthenticated, isLoading };
+  return { 
+    isAuthenticated, 
+    isLoading: isLoading || isCheckingAuth 
+  };
 }
