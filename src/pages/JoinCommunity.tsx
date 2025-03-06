@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -575,4 +576,219 @@ const JoinCommunity = () => {
                   Join these active groups and conversations
                 </p>
               </div>
-              <Button className="mt-4
+              <Button className="mt-4 md:mt-0 bg-reclaim-blue hover:bg-reclaim-blue/90 text-white">
+                View All Groups <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Group 1 */}
+              <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-full bg-reclaim-green/20 flex items-center justify-center mr-3">
+                        <Heart className="w-5 h-5 text-reclaim-green" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl">Addiction Recovery Support</CardTitle>
+                        <CardDescription>3,254 members • Very Active</CardDescription>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="bg-reclaim-blue/10 text-reclaim-blue border-reclaim-blue/20">
+                      Popular
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <p className="text-reclaim-charcoal/70">
+                    A supportive community for individuals at all stages of recovery from substance use disorders. Share experiences and find encouragement.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <div className="flex -space-x-2">
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=1" />
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=2" />
+                      <AvatarFallback>LP</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=3" />
+                      <AvatarFallback>SM</AvatarFallback>
+                    </Avatar>
+                    <div className="bg-gray-100 border-2 border-white rounded-full h-8 w-8 flex items-center justify-center text-xs font-medium">
+                      +42
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-reclaim-green text-reclaim-green hover:bg-reclaim-green/10"
+                    onClick={() => handleJoinGroup("Addiction Recovery Support")}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" /> Join Group
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Group 2 */}
+              <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-full bg-reclaim-blue/20 flex items-center justify-center mr-3">
+                        <Globe className="w-5 h-5 text-reclaim-blue" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl">Global Recovery Network</CardTitle>
+                        <CardDescription>1,823 members • Moderately Active</CardDescription>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                      New
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <p className="text-reclaim-charcoal/70">
+                    Connect with recovery communities around the world, share cultural perspectives on healing, and build international support networks.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <div className="flex -space-x-2">
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=4" />
+                      <AvatarFallback>EJ</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=5" />
+                      <AvatarFallback>KT</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=6" />
+                      <AvatarFallback>RN</AvatarFallback>
+                    </Avatar>
+                    <div className="bg-gray-100 border-2 border-white rounded-full h-8 w-8 flex items-center justify-center text-xs font-medium">
+                      +28
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-reclaim-blue text-reclaim-blue hover:bg-reclaim-blue/10"
+                    onClick={() => handleJoinGroup("Global Recovery Network")}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" /> Join Group
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Group 3 */}
+              <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-full bg-purple-200 flex items-center justify-center mr-3">
+                        <Shield className="w-5 h-5 text-purple-700" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl">Mental Health Allies</CardTitle>
+                        <CardDescription>2,487 members • Very Active</CardDescription>
+                      </div>
+                    </div>
+                    <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">
+                      Featured
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <p className="text-reclaim-charcoal/70">
+                    A safe space for discussing mental health challenges, recovery strategies, and supporting each other through difficult times.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <div className="flex -space-x-2">
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=7" />
+                      <AvatarFallback>MH</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=8" />
+                      <AvatarFallback>AK</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=9" />
+                      <AvatarFallback>JW</AvatarFallback>
+                    </Avatar>
+                    <div className="bg-gray-100 border-2 border-white rounded-full h-8 w-8 flex items-center justify-center text-xs font-medium">
+                      +35
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-purple-500 text-purple-700 hover:bg-purple-50"
+                    onClick={() => handleJoinGroup("Mental Health Allies")}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" /> Join Group
+                  </Button>
+                </CardFooter>
+              </Card>
+              
+              {/* Group 4 */}
+              <Card className="hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer">
+                <CardHeader className="pb-2">
+                  <div className="flex justify-between items-start">
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center mr-3">
+                        <MapPin className="w-5 h-5 text-amber-600" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-xl">Local Support Meetups</CardTitle>
+                        <CardDescription>968 members • Moderately Active</CardDescription>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <p className="text-reclaim-charcoal/70">
+                    Find and organize in-person recovery support meetings in your local area. Connect with peers in your community.
+                  </p>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <div className="flex -space-x-2">
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=10" />
+                      <AvatarFallback>TC</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=11" />
+                      <AvatarFallback>PD</AvatarFallback>
+                    </Avatar>
+                    <Avatar className="border-2 border-white h-8 w-8">
+                      <AvatarImage src="https://i.pravatar.cc/100?img=12" />
+                      <AvatarFallback>BL</AvatarFallback>
+                    </Avatar>
+                    <div className="bg-gray-100 border-2 border-white rounded-full h-8 w-8 flex items-center justify-center text-xs font-medium">
+                      +16
+                    </div>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="border-amber-500 text-amber-600 hover:bg-amber-50"
+                    onClick={() => handleJoinGroup("Local Support Meetups")}
+                  >
+                    <UserPlus className="mr-2 h-4 w-4" /> Join Group
+                  </Button>
+                </CardFooter>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
+  );
+};
+
+export default JoinCommunity;
