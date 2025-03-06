@@ -134,26 +134,17 @@ export const GlobalSearch = () => {
 
   return (
     <>
-      <Button
-        variant="outline"
-        className="md:w-64 lg:w-80 justify-start text-muted-foreground hidden md:inline-flex relative"
-        onClick={() => setOpen(true)}
-      >
-        <Search className="mr-2 h-4 w-4" />
-        <span>Search...</span>
-        <kbd className="pointer-events-none absolute right-2 top-2.5 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-60 md:flex">
+      <div className="relative w-full">
+        <Input
+          type="text"
+          placeholder="Search resources, community, journal..."
+          className="w-full pl-10 pr-4 py-2 rounded-md"
+          onClick={() => setOpen(true)}
+        />
+        <kbd className="pointer-events-none absolute right-2 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-60 md:flex">
           <span className="text-xs">⌘</span>K
         </kbd>
-      </Button>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="md:hidden"
-        onClick={() => setOpen(true)}
-      >
-        <Search className="h-5 w-5" />
-        <span className="sr-only">Search</span>
-      </Button>
+      </div>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput

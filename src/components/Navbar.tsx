@@ -17,9 +17,8 @@ import { useLocation } from 'react-router-dom';
 // Updated import path using absolute path with @ alias
 import logo from '@/assets/reclaim-logo-light.svg';
 
-// Import the NotificationCenter and GlobalSearch components
+// Import the NotificationCenter component only (removed GlobalSearch)
 import { NotificationCenter } from "@/components/NotificationCenter";
-import { GlobalSearch } from "@/components/GlobalSearch";
 
 const Navbar = () => {
   const { user, session, signOut } = useAuth();
@@ -48,7 +47,6 @@ const Navbar = () => {
 
         {/* User navigation (Login/Signup or User Menu) */}
         <div className="flex items-center space-x-1">
-          <GlobalSearch />
           <NotificationCenter />
           {isAuthenticated ? (
             <DropdownMenu>
