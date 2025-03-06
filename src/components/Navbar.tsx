@@ -14,7 +14,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { BookText, LogOut, Settings, User, Bell } from "lucide-react";
 import { useLocation } from 'react-router-dom';
-import logo from '../assets/reclaim-logo-light.svg';
+// Updated import path using absolute path with @ alias
+import logo from '@/assets/reclaim-logo-light.svg';
 
 // Import the NotificationCenter and GlobalSearch components
 import { NotificationCenter } from "@/components/NotificationCenter";
