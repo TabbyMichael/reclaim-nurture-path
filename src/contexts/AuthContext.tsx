@@ -1,6 +1,7 @@
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Session, User } from "@supabase/supabase-js";
+import { Session, User, Provider } from "@supabase/supabase-js";
 import { useToast } from "@/hooks/use-toast";
 
 interface AuthContextType {
@@ -12,6 +13,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   getProfile: () => Promise<any>;
   resetPassword: (email: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -103,6 +105,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signInWithGoogle = async () => {
+    try {
+      setIsLoading(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        }
+      });
+      
+      if (error) {
+        toast({
+          title: "Error signing in with Google",
+          description: error.message,
+          variant: "destructive",
+        });
+        throw error;
+      }
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+      toast({
+        title: "Error signing in with Google",
+        description: "An error occurred while signing in with Google.",
+        variant: "destructive",
+      });
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const signOut = async () => {
     try {
       setIsLoading(true);
@@ -181,6 +214,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signOut,
         getProfile,
         resetPassword,
+        signInWithGoogle,
       }}
     >
       {children}
