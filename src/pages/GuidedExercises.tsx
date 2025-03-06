@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Play, BookOpen, Clock, Heart, Brain, Wind, Flame, Drop, Cloud } from "lucide-react";
+import { Play, BookOpen, Clock, Heart, Brain, Wind, Flame, Droplet, Cloud } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/Navbar";
@@ -171,7 +171,7 @@ const GuidedExercises = () => {
         description: "Use water as a powerful sensory tool for immediate grounding.",
         duration: "2 min",
         category: "grounding" as const,
-        icon: <Drop className="w-16 h-16 text-reclaim-blue/60" />,
+        icon: <Droplet className="w-16 h-16 text-reclaim-blue/60" />,
       },
     ],
     mindfulness: [
