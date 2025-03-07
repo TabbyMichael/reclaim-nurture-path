@@ -28,20 +28,25 @@ const Navbar = () => {
   const isSignupPage = location.pathname === '/signup';
   // Check if user is authenticated based on session
   const isAuthenticated = !!session;
+  const getInitials = () => {
+    if (user?.user_metadata?.first_name && user?.user_metadata?.last_name) {
+      return `${user.user_metadata.first_name[0]}${user.user_metadata.last_name[0]}`;
+    }
+    return user?.email?.charAt(0)?.toUpperCase() || "U";
+  };
 
   return (
-    <div className="bg-reclaim-blue text-white sticky top-0 z-50">
+    <div className="bg-gradient-to-r from-reclaim-blue to-reclaim-teal text-white sticky top-0 z-50">
       <div className="container mx-auto py-4 px-4 flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <img src={logo} alt="Reclaim Logo" className="h-8 mr-2" />
-          <span className="font-bold text-xl">Reclaim</span>
+          <img src={logo} alt="Reclaim Logo" className="h-8" />
         </Link>
 
         {/* Conditionally render navigation links based on authentication status */}
         <div className="hidden md:flex items-center space-x-4">
           <Link to="/about" className="hover:text-gray-200">About</Link>
           <Link to="/community" className="hover:text-gray-200">Community</Link>
-          <Link to="/resources" className="hover:text-gray-200">Resources</Link>
+          <Link to="/educational-resources" className="hover:text-gray-200">Resources</Link>
           <Link to="/help-center" className="hover:text-gray-200">Help</Link>
         </div>
 
@@ -55,11 +60,9 @@ const Navbar = () => {
                   <Avatar className="h-10 w-10 border border-muted">
                     <AvatarImage
                       src={user?.user_metadata?.avatar_url || "/placeholder.svg"}
-                      alt={user?.email || "User"}
+                      alt={`${user?.user_metadata?.first_name || ''} ${user?.user_metadata?.last_name || ''}`}
                     />
-                    <AvatarFallback>
-                      {user?.email?.charAt(0)?.toUpperCase() || "U"}
-                    </AvatarFallback>
+                    <AvatarFallback>{getInitials()}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
