@@ -2,7 +2,7 @@
 
 Reclaim is a comprehensive mental health recovery platform designed to empower individuals on their journey to wellness through community support, personalized tracking, and evidence-based resources.
 
-[src/assets/1.png]
+![Platform Overview](src/assets/1.png)
 
 ## Features
 
@@ -12,7 +12,7 @@ Reclaim is a comprehensive mental health recovery platform designed to empower i
 - **Anonymous Posting**: Share experiences comfortably
 - **Group Support**: Join topic-specific support groups
 
-[src/assets/2.png]
+![Community Features](src/assets/2.png)
 
 ### 📊 Personal Recovery Tracking
 - **Daily Check-ins**: Track your progress and mood
@@ -20,7 +20,7 @@ Reclaim is a comprehensive mental health recovery platform designed to empower i
 - **Progress Visualization**: See your journey through interactive charts
 - **AI-Powered Insights**: Get personalized recommendations
 
-[src/assets/3.png]
+![Personal Tracking](src/assets/3.png)
 
 ### 📝 Journal & Resources
 - **Private Journaling**: Document your thoughts and experiences
@@ -28,7 +28,7 @@ Reclaim is a comprehensive mental health recovery platform designed to empower i
 - **Resource Library**: Educational materials and coping strategies
 - **Emergency Support**: Quick access to crisis resources
 
-[src/assets/4.png]
+![Journal and Resources](src/assets/4.png)
 
 ## Tech Stack
 
