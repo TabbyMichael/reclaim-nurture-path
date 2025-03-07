@@ -13,16 +13,25 @@ import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Loader2 } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
+
+interface Profile {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  updated_at: string | null;
+}
 
 const UserProfile = () => {
   const { isAuthenticated, isLoading: authChecking } = useProtectedRoute();
   const { user, getProfile } = useAuth();
   const { toast } = useToast();
   
-  const [profile, setProfile] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   
   const [formData, setFormData] = useState({
     firstName: "",
@@ -59,6 +68,83 @@ const UserProfile = () => {
       loadProfile();
     }
   }, [isAuthenticated, getProfile, toast]);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0]) return;
+
+    const file = e.target.files[0];
+    
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: "Invalid file type",
+        description: "Please upload a JPEG, PNG, or GIF image.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    if (file.size > maxSize) {
+      toast({
+        title: "File too large",
+        description: "Please upload an image smaller than 5MB.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+    const filePath = `${user?.id}/${fileName}`;
+
+    setIsUploading(true);
+
+    try {
+      // Check if user ID exists
+      if (!user?.id) {
+        throw new Error('User not authenticated');
+      }
+
+      const { error: uploadError, data } = await supabase.storage
+        .from('avatars')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+
+      if (uploadError) {
+        console.error('Upload error details:', uploadError);
+        throw uploadError;
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(filePath);
+
+      setFormData({
+        ...formData,
+        avatarUrl: publicUrl,
+      });
+
+      toast({
+        title: "Image uploaded",
+        description: "Your profile picture has been uploaded successfully.",
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      const errorMessage = error instanceof Error ? error.message : 'Could not upload your profile picture';
+      toast({
+        title: "Error uploading image",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -142,101 +228,81 @@ const UserProfile = () => {
                 <CardContent>
                   <form onSubmit={handleSubmit}>
                     <div className="mb-6 flex flex-col md:flex-row items-start md:items-center gap-6">
-                      <Avatar className="w-24 h-24 border-2 border-reclaim-blue/20">
-                        <AvatarImage src={formData.avatarUrl || "/placeholder.svg"} alt={`${formData.firstName} ${formData.lastName}`} />
-                        <AvatarFallback>
-                          {formData.firstName && formData.lastName
-                            ? `${formData.firstName[0]}${formData.lastName[0]}`
-                            : "??"
-                          }
-                        </AvatarFallback>
-                      </Avatar>
+                      <div className="relative">
+                        <Avatar className="w-24 h-24 border-2 border-reclaim-blue/20">
+                          <AvatarImage src={formData.avatarUrl || "/placeholder.svg"} alt={`${formData.firstName} ${formData.lastName}`} />
+                          <AvatarFallback>
+                            {formData.firstName && formData.lastName
+                              ? `${formData.firstName[0]}${formData.lastName[0]}`
+                              : "??"
+                            }
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="mt-4">
+                          <Label htmlFor="imageUpload" className="cursor-pointer">
+                            <div className="flex items-center justify-center gap-2 text-sm text-reclaim-blue hover:text-reclaim-blue/80 transition-colors">
+                              <Upload className="h-4 w-4" />
+                              <span>{isUploading ? "Uploading..." : "Upload Image"}</span>
+                            </div>
+                          </Label>
+                          <Input
+                            id="imageUpload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            className="hidden"
+                            disabled={isUploading}
+                          />
+                        </div>
+                      </div>
                       
                       <div className="space-y-2 flex-1">
-                        <Label htmlFor="avatarUrl">Profile Picture URL</Label>
-                        <Input
-                          id="avatarUrl"
-                          name="avatarUrl"
-                          value={formData.avatarUrl}
-                          onChange={handleInputChange}
-                          placeholder="https://example.com/image.jpg"
-                        />
-                        <p className="text-sm text-reclaim-charcoal/60">
-                          Enter a URL for your profile picture or leave blank to use initials.
-                        </p>
+                        <div className="grid gap-4 md:grid-cols-2">
+                          <div className="space-y-2">
+                            <Label htmlFor="firstName">First Name</Label>
+                            <Input
+                              id="firstName"
+                              name="firstName"
+                              value={formData.firstName}
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label htmlFor="lastName">Last Name</Label>
+                            <Input
+                              id="lastName"
+                              name="lastName"
+                              value={formData.lastName}
+                              onChange={handleInputChange}
+                              required
+                            />
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
-                    <div className="grid gap-4 md:grid-cols-2 mb-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
-                        <Input
-                          id="firstName"
-                          name="firstName"
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          required
-                        />
+                    <div className="flex justify-end">
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
-                        <Input
-                          id="lastName"
-                          name="lastName"
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={user?.email || ""}
-                        disabled
-                        className="bg-reclaim-sand/50"
-                      />
-                      <p className="text-sm text-reclaim-charcoal/60">
-                        Your email cannot be changed.
-                      </p>
-                    </div>
-                  </form>
-                </CardContent>
-                <CardFooter className="justify-end">
-                  <Button 
-                    type="submit" 
-                    onClick={handleSubmit}
-                    disabled={isSaving}
-                  >
-                    {isSaving ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Saving...
-                      </>
-                    ) : "Save Changes"}
-                  </Button>
-                </CardFooter>
+                        <CardFooter className="justify-end">
+                          <Button type="submit" disabled={isSaving || isUploading}>
+                            {isSaving ? (
+                              <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Saving...
+                              </>
+                            ) : (
+                              "Save Changes"
+                            )}
+                          </Button>
+                        </CardFooter>
+                      </form>
+                    </CardContent>
               </Card>
             </TabsContent>
             
-            <TabsContent value="preferences" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Recovery Preferences</CardTitle>
-                  <CardDescription>
-                    Customize your recovery journey and notification preferences.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-center py-12 text-reclaim-charcoal/60">
-                    Recovery preferences will be available in a future update.
-                  </p>
-                </CardContent>
-              </Card>
+            <TabsContent value="preferences">
+              {/* Recovery preferences content */}
             </TabsContent>
           </Tabs>
         </div>

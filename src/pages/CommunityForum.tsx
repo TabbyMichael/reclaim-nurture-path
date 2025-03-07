@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { MessageSquare, Users, Pencil, Clock, Search, Filter, PlusCircle } from "lucide-react";
@@ -21,6 +21,12 @@ type ForumTopicProps = {
   lastActive: string;
   isPinned?: boolean;
   category: string;
+  isAnonymous?: boolean;
+  isModerated?: boolean;
+  authorId?: string;
+  authorName?: string;
+  moderatorId?: string;
+  status: 'approved' | 'pending' | 'flagged';
 };
 
 const ForumTopic: React.FC<ForumTopicProps> = ({
@@ -32,6 +38,10 @@ const ForumTopic: React.FC<ForumTopicProps> = ({
   lastActive,
   isPinned,
   category,
+  isAnonymous,
+  isModerated,
+  authorName,
+  status,
 }) => {
   return (
     <Link to={`/community/topic/${id}`}>
@@ -47,6 +57,26 @@ const ForumTopic: React.FC<ForumTopicProps> = ({
                   <span className="bg-amber-100 text-amber-700 text-xs py-1 px-2 rounded-full flex items-center">
                     <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-500 mr-1"></span>
                     Pinned
+                  </span>
+                )}
+                {isAnonymous && (
+                  <span className="bg-gray-100 text-gray-700 text-xs py-1 px-2 rounded-full flex items-center">
+                    Anonymous
+                  </span>
+                )}
+                {isModerated && (
+                  <span className="bg-green-100 text-green-700 text-xs py-1 px-2 rounded-full flex items-center">
+                    Moderated
+                  </span>
+                )}
+                {status === 'pending' && (
+                  <span className="bg-yellow-100 text-yellow-700 text-xs py-1 px-2 rounded-full flex items-center">
+                    Pending Review
+                  </span>
+                )}
+                {status === 'flagged' && (
+                  <span className="bg-red-100 text-red-700 text-xs py-1 px-2 rounded-full flex items-center">
+                    Flagged
                   </span>
                 )}
               </div>
@@ -82,7 +112,16 @@ const ForumTopic: React.FC<ForumTopicProps> = ({
 
 const CommunityForum = () => {
   // Use protected route to ensure authentication
-  const { isAuthenticated, isLoading } = useProtectedRoute();
+  const { isAuthenticated, isLoading, user } = useProtectedRoute();
+  const [showModQueue, setShowModQueue] = useState(false);
+  const [privacySettings, setPrivacySettings] = useState({
+    defaultAnonymous: false,
+    showProfileInfo: true,
+    allowDirectMessages: true
+  });
+  
+  // Check if user is a moderator
+  const isModerator = user?.role === 'moderator';
 
   // Sample forum topics
   const topics: ForumTopicProps[] = [
@@ -95,15 +134,20 @@ const CommunityForum = () => {
       lastActive: "2 hours ago",
       isPinned: true,
       category: "Welcome",
+      isModerated: true,
+      authorName: "Community Team",
+      status: "approved"
     },
     {
       id: "2",
-      title: "Strategies for Dealing with Triggers",
-      description: "Share and discuss effective strategies for managing triggers in everyday situations.",
+      title: "Seeking Support: Dealing with Triggers",
+      description: "Looking for advice on managing triggers in social situations. Sharing anonymously for privacy.",
       replies: 31,
       participants: 14,
       lastActive: "3 hours ago",
-      category: "Strategies",
+      category: "Support",
+      isAnonymous: true,
+      status: "approved"
     },
     {
       id: "3",
@@ -114,6 +158,7 @@ const CommunityForum = () => {
       lastActive: "6 hours ago",
       isPinned: true,
       category: "Check-in",
+      status: "approved"
     },
     {
       id: "4",
@@ -123,6 +168,7 @@ const CommunityForum = () => {
       participants: 11,
       lastActive: "1 day ago",
       category: "Resources",
+      status: "approved"
     },
     {
       id: "5",
@@ -132,6 +178,7 @@ const CommunityForum = () => {
       participants: 15,
       lastActive: "2 days ago",
       category: "Techniques",
+      status: "approved"
     },
     {
       id: "6",
@@ -141,9 +188,9 @@ const CommunityForum = () => {
       participants: 27,
       lastActive: "3 days ago",
       category: "Celebrations",
+      status: "approved"
     },
   ];
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-reclaim-sand flex flex-col">
@@ -193,6 +240,7 @@ const CommunityForum = () => {
                 <TabsTrigger value="popular">Popular</TabsTrigger>
                 <TabsTrigger value="recent">Recent</TabsTrigger>
                 <TabsTrigger value="unanswered">Unanswered</TabsTrigger>
+                {isModerator && <TabsTrigger value="moderation">Moderation Queue</TabsTrigger>}
               </TabsList>
 
               <TabsContent value="all" className="mt-0">
@@ -232,6 +280,27 @@ const CommunityForum = () => {
                   No unanswered topics at the moment.
                 </div>
               </TabsContent>
+
+              {isModerator && (
+                <TabsContent value="moderation" className="mt-0">
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-semibold">Pending Review</h3>
+                      <div className="flex gap-2">
+                        <Button variant="outline" className="gap-2">
+                          <Filter className="h-4 w-4" />
+                          Filter
+                        </Button>
+                      </div>
+                    </div>
+                    {topics
+                      .filter(topic => topic.status === 'pending' || topic.status === 'flagged')
+                      .map((topic) => (
+                        <ForumTopic key={topic.id} {...topic} />
+                      ))}
+                  </div>
+                </TabsContent>
+              )}
             </Tabs>
 
             <div className="mt-8 flex justify-center">
