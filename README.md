@@ -1,69 +1,133 @@
-# Welcome to your Lovable project
+# Reclaim Recovery Platform
 
-## Project info
+Reclaim is a comprehensive mental health recovery platform designed to empower individuals on their journey to wellness through community support, personalized tracking, and evidence-based resources.
 
-**URL**: https://lovable.dev/projects/c7bc3850-510b-4784-a707-7e6a9415c5a4
+[src/assets/1.png]
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+### 🤝 Supportive Community
+- **Community Forum**: Connect with others on similar journeys
+- **Moderated Discussions**: Safe and supportive environment
+- **Anonymous Posting**: Share experiences comfortably
+- **Group Support**: Join topic-specific support groups
 
-**Use Lovable**
+[src/assets/2.png]
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c7bc3850-510b-4784-a707-7e6a9415c5a4) and start prompting.
+### 📊 Personal Recovery Tracking
+- **Daily Check-ins**: Track your progress and mood
+- **Custom Triggers**: Identify and monitor personal triggers
+- **Progress Visualization**: See your journey through interactive charts
+- **AI-Powered Insights**: Get personalized recommendations
 
-Changes made via Lovable will be committed automatically to this repo.
+[src/assets/3.png]
 
-**Use your preferred IDE**
+### 📝 Journal & Resources
+- **Private Journaling**: Document your thoughts and experiences
+- **Guided Exercises**: Access therapeutic writing prompts
+- **Resource Library**: Educational materials and coping strategies
+- **Emergency Support**: Quick access to crisis resources
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+[src/assets/4.png]
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Tech Stack
 
-Follow these steps:
+- **Frontend**: React, TypeScript, Tailwind CSS
+- **Backend**: Supabase
+- **Authentication**: Supabase Auth
+- **Storage**: Supabase Storage
+- **UI Components**: Shadcn/ui
+- **Charts**: Recharts
+- **Build Tool**: Vite
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Getting Started
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Prerequisites
 
-# Step 3: Install the necessary dependencies.
-npm i
+- Node.js (v18 or higher)
+- npm or yarn
+- Supabase account
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+### Installation
+
+1. Clone the repository
+```bash
+git clone https://github.com/your-username/reclaim-nurture-path.git
+cd reclaim-nurture-path
 ```
 
-**Edit a file directly in GitHub**
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+3. Set up environment variables
+```bash
+cp .env.example .env
+```
+Update the `.env` file with your Supabase credentials
 
-**Use GitHub Codespaces**
+4. Start the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Reusable UI components
+├── contexts/       # React contexts
+├── hooks/          # Custom hooks
+├── integrations/   # External service integrations
+├── lib/           # Utility functions
+├── pages/         # Application pages
+└── styles/        # Global styles
+```
 
-This project is built with .
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+We welcome contributions to the Reclaim Recovery Platform! Here's how you can help:
 
-## How can I deploy this project?
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Simply open [Lovable](https://lovable.dev/projects/c7bc3850-510b-4784-a707-7e6a9415c5a4) and click on Share -> Publish.
+## License
 
-## I want to use a custom domain - is that possible?
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## Support
+
+If you need help or have any questions:
+
+- Open an issue
+- Contact us at [support@reclaimrecovery.com]
+- Visit our [Help Center](https://reclaimrecovery.com/help)
+
+## Screenshots
+
+### Dashboard
+[Dashboard Screenshot - To be added]
+
+### Profile Settings
+[Profile Settings Screenshot - To be added]
+
+### Community Forum
+[Community Forum Screenshot - To be added]
+
+## Acknowledgments
+
+- Thanks to all contributors who have helped shape this platform
+- Special thanks to our community members for their valuable feedback
+- Inspired by the need for better mental health recovery tools
+
+---
+
+[Reclaim Recovery Platform](https://reclaimrecovery.com) | [Documentation](https://docs.reclaimrecovery.com) | [Community](https://community.reclaimrecovery.com)
